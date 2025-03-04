@@ -8,6 +8,16 @@ class NumberGameGUI:
         self.root.title("数字当てゲーム")
         self.root.geometry("400x500")
         
+        # フォント設定
+        self.fonts = {
+            'title': ('Yu Gothic', 16, 'bold'),
+            'subtitle': ('Yu Gothic', 12, 'bold'),
+            'normal': ('Yu Gothic', 11),
+            'input': ('Yu Gothic', 14),
+            'button': ('Yu Gothic', 12),
+            'history': ('Yu Gothic', 10)
+        }
+        
         # テーマカラーの設定
         self.colors = {
             'bg': '#E8F5E9',
@@ -33,18 +43,28 @@ class NumberGameGUI:
         # タイトル
         title_label = tk.Label(
             self.root,
-            text="1から100までの数字を当ててください！",
-            font=("Helvetica", 12, "bold"),
+            text="数字当てゲーム",
+            font=self.fonts['title'],
             bg=self.colors['bg'],
             fg=self.colors['title']
         )
         title_label.pack(pady=10)
         
+        # サブタイトル
+        subtitle_label = tk.Label(
+            self.root,
+            text="1から100までの数字を当ててください！",
+            font=self.fonts['subtitle'],
+            bg=self.colors['bg'],
+            fg=self.colors['title']
+        )
+        subtitle_label.pack(pady=5)
+        
         # 残り回数表示
         self.tries_label = tk.Label(
             self.root,
             text=f"残り回数: {self.max_tries - self.tries}",
-            font=("Helvetica", 10),
+            font=self.fonts['normal'],
             bg=self.colors['bg'],
             fg=self.colors['title']
         )
@@ -57,9 +77,10 @@ class NumberGameGUI:
         # 数字入力
         self.number_entry = tk.Entry(
             input_frame,
-            width=10,
-            font=("Helvetica", 12),
-            bg=self.colors['entry_bg']
+            width=8,
+            font=self.fonts['input'],
+            bg=self.colors['entry_bg'],
+            justify='center'
         )
         self.number_entry.pack(side=tk.LEFT, padx=5)
         self.number_entry.bind('<Return>', lambda e: self.check_guess())
@@ -69,11 +90,12 @@ class NumberGameGUI:
             input_frame,
             text="予想する",
             command=self.check_guess,
-            font=("Helvetica", 10),
+            font=self.fonts['button'],
             bg=self.colors['button'],
             fg=self.colors['button_text'],
             relief=tk.RAISED,
-            cursor="hand2"
+            cursor="hand2",
+            padx=15
         )
         submit_button.pack(side=tk.LEFT, padx=5)
         
@@ -81,7 +103,7 @@ class NumberGameGUI:
         self.hint_label = tk.Label(
             self.root,
             text="数字を入力してください",
-            font=("Helvetica", 11),
+            font=self.fonts['normal'],
             wraplength=350,
             bg=self.colors['bg'],
             fg=self.colors['title']
@@ -92,7 +114,7 @@ class NumberGameGUI:
         history_frame = tk.LabelFrame(
             self.root,
             text="入力履歴",
-            font=("Helvetica", 10, "bold"),
+            font=self.fonts['subtitle'],
             bg=self.colors['bg'],
             fg=self.colors['title']
         )
@@ -106,7 +128,7 @@ class NumberGameGUI:
         self.history_listbox = tk.Listbox(
             history_frame,
             height=10,
-            font=("Helvetica", 10),
+            font=self.fonts['history'],
             yscrollcommand=scrollbar.set,
             bg=self.colors['entry_bg'],
             selectmode=tk.NONE
