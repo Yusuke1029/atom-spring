@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <ul>
+                <li><a href="#home">ホーム</a></li>
+                <li><a href="#about">自己紹介</a></li>
+                <li><a href="#skills">スキル</a></li>
+                <li><a href="#contact">お問い合わせ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="typing-effect">こんにちは、私のポートフォリオへようこそ</h1>
+            <p>Web開発とデザインが大好きなエンジニアです</p>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <h2>自己紹介</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>はじめまして！フルスタックエンジニアとして活動しています。</p>
+                <p>新しい技術の学習とクリエイティブな問題解決が大好きです。</p>
+                <button id="readMoreBtn" class="btn">もっと読む</button>
+            </div>
+            <div id="moreContent" class="more-content hidden">
+                <p>日々の業務ではフロントエンド開発からバックエンド開発まで幅広く担当しています。</p>
+                <p>チームでの協力を大切にし、より良いプロダクトを作ることを心がけています。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="skills">
+        <h2>スキル</h2>
+        <div class="skills-container">
+            <div class="skill-card" data-skill="90">
+                <h3>HTML/CSS</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress"></div>
+                </div>
+            </div>
+            <div class="skill-card" data-skill="85">
+                <h3>JavaScript</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress"></div>
+                </div>
+            </div>
+            <div class="skill-card" data-skill="80">
+                <h3>Python</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress"></div>
+                </div>
+            </div>
+            <div class="skill-card" data-skill="75">
+                <h3>React</h3>
+                <div class="skill-bar">
+                    <div class="skill-progress"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>お問い合わせ</h2>
+        <form id="contactForm" class="contact-form">
+            <div class="form-group">
+                <input type="text" id="name" required>
+                <label for="name">お名前</label>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" required>
+                <label for="email">メールアドレス</label>
+            </div>
+            <div class="form-group">
+                <textarea id="message" required></textarea>
+                <label for="message">メッセージ</label>
+            </div>
+            <button type="submit" class="btn">送信</button>
+        </form>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 My Portfolio. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
