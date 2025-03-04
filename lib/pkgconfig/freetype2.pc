@@ -1,0 +1,14 @@
+prefix=/Users/kurokiyusuke/anaconda3/envs/workshop
+exec_prefix=/Users/kurokiyusuke/anaconda3/envs/workshop
+libdir=/Users/kurokiyusuke/anaconda3/envs/workshop/lib
+includedir=/Users/kurokiyusuke/anaconda3/envs/workshop/include
+
+Name: FreeType 2
+URL: https://freetype.org
+Description: A free, high-quality, and portable font engine.
+Version: 24.3.18
+Requires: 
+Requires.private: 
+Libs: -L/Users/kurokiyusuke/anaconda3/envs/workshop/lib -lfreetype
+Libs.private: -lz -L/Users/kurokiyusuke/anaconda3/envs/workshop/lib -lpng16 -lz
+Cflags: -I${includedir}/freetype2

@@ -1,0 +1,41 @@
+{
+  "build": "py311he598dae_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/osx-arm64",
+  "constrains": [
+    "setuptools <74"
+  ],
+  "depends": [
+    "blas * openblas",
+    "libcxx >=14.0.6",
+    "libopenblas >=0.3.21,<1.0a0",
+    "numpy-base 2.2.2 py311hfbfe69c_0",
+    "python >=3.11,<3.12.0a0"
+  ],
+  "extracted_package_dir": "/Users/kurokiyusuke/anaconda3/pkgs/numpy-2.2.2-py311he598dae_0",
+  "features": "",
+  "files": [],
+  "fn": "numpy-2.2.2-py311he598dae_0.conda",
+  "legacy_bz2_md5": "0d5fad418dc612195afbab00d8c33846",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "link": {
+    "source": "/Users/kurokiyusuke/anaconda3/pkgs/numpy-2.2.2-py311he598dae_0",
+    "type": 1
+  },
+  "md5": "9ca1666b81eee2e5c71390eecc2f7d02",
+  "name": "numpy",
+  "package_tarball_full_path": "/Users/kurokiyusuke/anaconda3/pkgs/numpy-2.2.2-py311he598dae_0.conda",
+  "paths_data": {
+    "paths": [],
+    "paths_version": 1
+  },
+  "requested_spec": "numpy",
+  "sha256": "88a69a3eaf0375c47486006fc1e628846c3863b27aef7d8bc6e03c3c028f82d7",
+  "size": 12521,
+  "subdir": "osx-arm64",
+  "timestamp": 1738079194629,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/osx-arm64/numpy-2.2.2-py311he598dae_0.conda",
+  "version": "2.2.2"
+}
