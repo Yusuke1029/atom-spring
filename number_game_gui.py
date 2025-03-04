@@ -127,8 +127,8 @@ class NumberGameGUI:
         # 履歴表示用リストボックス
         self.history_listbox = tk.Listbox(
             history_frame,
-            height=10,
-            font=self.fonts['history'],
+            height=6,
+            font=('Yu Gothic', 9),
             yscrollcommand=scrollbar.set,
             bg=self.colors['entry_bg'],
             selectmode=tk.NONE
