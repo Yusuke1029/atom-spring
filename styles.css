@@ -361,6 +361,13 @@ h2::after {
     color: white;
 }
 
+/* ハイライト */
+.highlight {
+    color: #ff0000;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.2);
+}
+
 /* アニメーション */
 @keyframes fadeIn {
     from {
