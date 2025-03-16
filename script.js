@@ -1,6 +1,9 @@
 // APIキー設定の管理
 let GEMINI_API_KEY = '';
 
+// デフォルトのモデル名
+const DEFAULT_MODEL = 'gemini-1.5-flash';
+
 // APIキーをローカルストレージから読み込む
 function loadAPIKeys() {
     GEMINI_API_KEY = localStorage.getItem('gemini_api_key') || '';
@@ -80,17 +83,14 @@ async function checkAvailableModels() {
             throw new Error(data.error.message);
         }
 
-        // generateContentをサポートするモデルを探す
-        const availableModel = data.models?.find(model => 
-            model.name.includes('gemini-pro') && 
-            model.supportedGenerationMethods.includes('generateContent')
-        );
-
-        if (!availableModel) {
-            throw new Error('適切なモデルが見つかりませんでした');
+        // gemini-1.5-flashモデルの完全な名前を取得
+        const model = data.models?.find(m => m.name.includes(DEFAULT_MODEL));
+        
+        if (!model) {
+            throw new Error('Gemini 1.5 Flash モデルが利用できません');
         }
 
-        return availableModel.name;
+        return model.name;
     } catch (error) {
         console.error('モデル確認エラー:', error);
         throw error;
