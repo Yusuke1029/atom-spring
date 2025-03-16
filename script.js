@@ -80,19 +80,17 @@ async function checkAvailableModels() {
             throw new Error(data.error.message);
         }
 
-        // gemini-1.5-flashモデルを探す
-        const model = data.models?.find(m => m.name.includes('gemini-1.5-flash'));
-        
-        if (!model) {
-            // fallbackとしてgemini-1.5-proを試す
-            const fallbackModel = data.models?.find(m => m.name.includes('gemini-1.5-pro'));
-            if (!fallbackModel) {
-                throw new Error('適切なモデルが見つかりませんでした');
-            }
-            return fallbackModel.name;
+        // generateContentをサポートするモデルを探す
+        const availableModel = data.models?.find(model => 
+            model.name.includes('gemini-pro') && 
+            model.supportedGenerationMethods.includes('generateContent')
+        );
+
+        if (!availableModel) {
+            throw new Error('適切なモデルが見つかりませんでした');
         }
 
-        return model.name;
+        return availableModel.name;
     } catch (error) {
         console.error('モデル確認エラー:', error);
         throw error;
