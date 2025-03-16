@@ -3,105 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>原子力発電所シミュレータ</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="header">
-        <nav class="nav">
-            <ul>
-                <li><a href="#home">ホーム</a></li>
-                <li><a href="#about">自己紹介</a></li>
-                <li><a href="#contact">お問い合わせ</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="container">
+        <header>
+            <h1>原子力発電所シミュレータ</h1>
+            <div id="game-time">経過時間: <span id="time">0</span>日</div>
+        </header>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="typing-effect">全国の<span class="highlight">独り身</span>大学生のためのWebサイトです</h1>
-            <p>名古屋大学工学研究科 総合エネルギー工学専攻 修士1年 | 原子力を愛する学生です</p>
-        </div>
-    </section>
-
-    <section id="about" class="about">
-        <h2>自己紹介</h2>
-        <div class="about-content">
-            <div class="profile-container">
-                <div class="profile-image">
-                    <div class="image-placeholder">
-                        <!-- 画像を追加する場合は以下のコメントを解除して、src属性を実際の画像パスに変更してください -->
-                        <!-- <img src="your-image.jpg" alt="黒木裕介"> -->
-                        <span class="add-photo">＋<br>写真を追加</span>
-                    </div>
+        <div class="main-grid">
+            <div class="parameters panel">
+                <h2>運転パラメータ</h2>
+                <div class="parameter">
+                    <label>炉心温度:</label>
+                    <span id="core-temp">300</span>°C
                 </div>
-                <div class="profile-info">
-                    <h3>黒木 裕介</h3>
-                    <p class="profile-title">名古屋大学大学院 工学研究科<br>総合エネルギー工学専攻 修士1年</p>
-                    <p class="profile-subtitle">愛知県東海市出身</p>
+                <div class="parameter">
+                    <label>出力:</label>
+                    <span id="power-output">0</span>MW
+                </div>
+                <div class="parameter">
+                    <label>燃料状態:</label>
+                    <span id="fuel-status">良好</span>
+                </div>
+                <div class="parameter">
+                    <label>冷却システム:</label>
+                    <span id="cooling-status">正常</span>
                 </div>
             </div>
-            <div class="about-text">
-                <div class="about-section">
-                    <h4>経歴</h4>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <span class="timeline-date">2021年3月</span>
-                            <p>愛知県立横須賀高等学校 卒業</p>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="timeline-date">2021年4月</span>
-                            <p>福井大学工学部機械・システム工学科 入学</p>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="timeline-date">2022年8月</span>
-                            <p>全日本独り身保全協会 会長就任</p>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="timeline-date">2025年3月</span>
-                            <p>福井大学工学部機械・システム工学科 卒業</p>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="timeline-date">2025年4月</span>
-                            <p>名古屋大学工学研究科総合エネルギー工学専攻 入学</p>
-                        </div>
-                    </div>
+
+            <div class="controls panel">
+                <h2>制御パネル</h2>
+                <div class="control-buttons">
+                    <button id="start-reactor">原子炉起動</button>
+                    <button id="shutdown-reactor">緊急停止</button>
+                    <button id="adjust-control-rods">制御棒調整</button>
+                    <button id="check-systems">システム点検</button>
                 </div>
-                <div class="about-section">
-                    <h4>現在の研究</h4>
-                    <p>原子力エネルギーシステムの安全性と効率性の研究に取り組んでいます。特に、機械学習やデータ分析を活用した次世代原子力システムの研究を行っています。</p>
-                </div>
-                <div class="about-section">
-                    <h4>研究テーマ</h4>
-                    <p>機械学習を活用した原子力システムの安全性評価や、次世代エネルギーシステムの最適化に関する研究を行っています。データサイエンスの手法を用いて、より効率的で安全なエネルギーシステムの開発を目指しています。</p>
+            </div>
+
+            <div class="events panel">
+                <h2>イベントログ</h2>
+                <div id="event-log" class="scrollable"></div>
+            </div>
+
+            <div class="chat panel">
+                <h2>スタッフ通信</h2>
+                <div id="chat-log" class="scrollable"></div>
+                <div class="chat-input">
+                    <select id="staff-select">
+                        <option value="engineer">主任技術者</option>
+                        <option value="safety">安全管理官</option>
+                        <option value="operator">運転員</option>
+                    </select>
+                    <button id="contact-staff">スタッフに連絡</button>
                 </div>
             </div>
         </div>
-    </section>
 
-    <section id="contact" class="contact">
-        <h2>お問い合わせ</h2>
-        <form id="contactForm" class="contact-form">
-            <div class="form-group">
-                <input type="text" id="name" required>
-                <label for="name">お名前</label>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <h2 id="modal-title"></h2>
+                <p id="modal-message"></p>
+                <div id="modal-options"></div>
             </div>
-            <div class="form-group">
-                <input type="email" id="email" required>
-                <label for="email">メールアドレス</label>
-            </div>
-            <div class="form-group">
-                <textarea id="message" required></textarea>
-                <label for="message">メッセージ</label>
-            </div>
-            <button type="submit" class="btn">送信</button>
-        </form>
-    </section>
-
-    <footer class="footer">
-        <p>&copy; 2024 My Portfolio. All rights reserved.</p>
-    </footer>
-
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
