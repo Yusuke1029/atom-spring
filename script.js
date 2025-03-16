@@ -1,242 +1,251 @@
-// ゲームの状態管理
-const gameState = {
-    isRunning: false,
-    days: 0,
-    coreTemp: 300,
-    powerOutput: 0,
-    fuelStatus: '良好',
-    coolingStatus: '正常',
-    eventProbability: 0.1,
-    lastCheck: new Date()
-};
+// APIキー設定の管理
+let GEMINI_API_KEY = '';
 
-// イベントの定義
-const events = [
-    {
-        id: 'cooling_malfunction',
-        title: '冷却システム異常',
-        description: '冷却システムの性能が低下しています。早急な対応が必要です。',
-        severity: 'high',
-        options: [
-            { text: '緊急停止する', action: 'shutdown' },
-            { text: 'バックアップシステムに切り替える', action: 'switch_backup' },
-            { text: '技術者を呼ぶ', action: 'call_engineer' }
-        ]
-    },
-    {
-        id: 'fuel_degradation',
-        title: '燃料棒の劣化',
-        description: '燃料棒の劣化が検出されました。定期点検時期を前倒しする必要があります。',
-        severity: 'medium',
-        options: [
-            { text: '即座に点検を実施', action: 'immediate_inspection' },
-            { text: '出力を下げて運転継続', action: 'reduce_power' },
-            { text: '状況を監視', action: 'monitor' }
-        ]
-    }
-];
-
-// スタッフの定義
-const staff = {
-    engineer: {
-        name: '山田技術主任',
-        responses: {
-            normal: [
-                'システムの状態は安定しています。通常運転を継続してください。',
-                '定期点検の時期が近づいています。スケジュールの確認をお願いします。',
-                '燃料棒の状態は正常範囲内です。'
-            ],
-            emergency: [
-                '直ちに緊急手順を実行してください。安全性を最優先に考えます。',
-                'バックアップシステムの起動を推奨します。',
-                '技術チームを派遣します。到着まで状況を監視してください。'
-            ]
-        }
-    },
-    safety: {
-        name: '佐藤安全管理官',
-        responses: {
-            normal: [
-                '安全パラメータは全て正常値です。',
-                '放射線量は基準値以内で推移しています。',
-                '避難経路の確認を定期的に実施してください。'
-            ],
-            emergency: [
-                '周辺地域への通知が必要です。手順に従って連絡を開始してください。',
-                '作業員の安全確保を最優先してください。',
-                '緊急時対応手順を確認してください。'
-            ]
-        }
-    },
-    operator: {
-        name: '鈴木運転員',
-        responses: {
-            normal: [
-                '制御棒の位置は適正です。',
-                '出力調整の必要はありません。',
-                '計器の値は全て正常範囲内です。'
-            ],
-            emergency: [
-                '制御棒の緊急挿入準備をしてください。',
-                '出力低下操作を開始します。',
-                '緊急停止システムの起動準備を行います。'
-            ]
-        }
-    }
-};
-
-// UIの更新
-function updateUI() {
-    document.getElementById('time').textContent = gameState.days;
-    document.getElementById('core-temp').textContent = gameState.coreTemp;
-    document.getElementById('power-output').textContent = gameState.powerOutput;
-    document.getElementById('fuel-status').textContent = gameState.fuelStatus;
-    document.getElementById('cooling-status').textContent = gameState.coolingStatus;
-}
-
-// イベントログの追加
-function addEventLog(message, type = 'normal') {
-    const eventLog = document.getElementById('event-log');
-    const eventElement = document.createElement('div');
-    eventElement.classList.add('event-message');
-    if (type !== 'normal') {
-        eventElement.classList.add(type);
-    }
-    eventElement.textContent = `Day ${gameState.days}: ${message}`;
-    eventLog.insertBefore(eventElement, eventLog.firstChild);
-}
-
-// チャットメッセージの追加
-function addChatMessage(sender, message) {
-    const chatLog = document.getElementById('chat-log');
-    const chatElement = document.createElement('div');
-    chatElement.classList.add('chat-message');
-    chatElement.innerHTML = `<span class="sender">${sender}:</span> ${message}`;
-    chatLog.insertBefore(chatElement, chatLog.firstChild);
-}
-
-// モーダルの表示
-function showModal(title, message, options) {
-    const modal = document.getElementById('modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalMessage = document.getElementById('modal-message');
-    const modalOptions = document.getElementById('modal-options');
-
-    modalTitle.textContent = title;
-    modalMessage.textContent = message;
-    modalOptions.innerHTML = '';
-
-    options.forEach(option => {
-        const button = document.createElement('button');
-        button.textContent = option.text;
-        button.onclick = () => {
-            handleEventOption(option.action);
-            modal.style.display = 'none';
-        };
-        modalOptions.appendChild(button);
-    });
-
-    modal.style.display = 'block';
-}
-
-// イベントオプションの処理
-function handleEventOption(action) {
-    switch (action) {
-        case 'shutdown':
-            gameState.isRunning = false;
-            gameState.powerOutput = 0;
-            addEventLog('原子炉を緊急停止しました。', 'warning');
-            break;
-        case 'switch_backup':
-            gameState.coolingStatus = '正常 (バックアップ)';
-            addEventLog('バックアップ冷却システムに切り替えました。', 'success');
-            break;
-        case 'call_engineer':
-            addChatMessage(staff.engineer.name, staff.engineer.responses.emergency[2]);
-            break;
-        // 他のアクションも同様に実装
-    }
-    updateUI();
-}
-
-// ランダムイベントの生成
-function generateRandomEvent() {
-    if (Math.random() < gameState.eventProbability) {
-        const event = events[Math.floor(Math.random() * events.length)];
-        showModal(event.title, event.description, event.options);
-    }
-}
-
-// ゲームの更新
-function updateGame() {
-    if (!gameState.isRunning) return;
-
-    gameState.days++;
+// APIキーをローカルストレージから読み込む
+function loadAPIKeys() {
+    GEMINI_API_KEY = localStorage.getItem('gemini_api_key') || '';
     
-    if (gameState.isRunning) {
-        // 温度の変動
-        gameState.coreTemp = Math.max(300, Math.min(1000, 
-            gameState.coreTemp + (Math.random() - 0.5) * 10));
-        
-        // 出力の変動
-        gameState.powerOutput = Math.max(0, Math.min(1000,
-            gameState.powerOutput + (Math.random() - 0.5) * 20));
+    if (!GEMINI_API_KEY) {
+        showModal();
     }
-
-    generateRandomEvent();
-    updateUI();
+    
+    updateSendButtonState();
 }
 
-// ボタンのイベントハンドラー
-document.getElementById('start-reactor').onclick = () => {
-    if (!gameState.isRunning) {
-        gameState.isRunning = true;
-        gameState.powerOutput = 100;
-        addEventLog('原子炉を起動しました。', 'success');
-        updateUI();
+// モーダル関連の要素
+const modal = document.getElementById('settings-modal');
+const settingsButton = document.getElementById('settings-button');
+const apiSettingsForm = document.getElementById('api-settings-form');
+const closeModalButton = document.querySelector('.close-modal');
+
+// モーダルの表示/非表示
+function showModal() {
+    modal.classList.add('show');
+    document.getElementById('gemini-key').value = GEMINI_API_KEY;
+}
+
+function hideModal() {
+    modal.classList.remove('show');
+}
+
+// APIキー設定のイベントリスナー
+settingsButton.addEventListener('click', showModal);
+closeModalButton.addEventListener('click', hideModal);
+
+apiSettingsForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    GEMINI_API_KEY = document.getElementById('gemini-key').value.trim();
+    localStorage.setItem('gemini_api_key', GEMINI_API_KEY);
+    
+    hideModal();
+    updateSendButtonState();
+});
+
+// 送信ボタンの状態を更新
+function updateSendButtonState() {
+    const sendButton = document.getElementById('send-button');
+    const hasAPIKey = GEMINI_API_KEY;
+    sendButton.disabled = !hasAPIKey;
+    
+    if (!hasAPIKey) {
+        sendButton.title = 'Google AI Studio APIキーを設定してください';
+    } else {
+        sendButton.title = '';
     }
-};
+}
 
-document.getElementById('shutdown-reactor').onclick = () => {
-    if (gameState.isRunning) {
-        gameState.isRunning = false;
-        gameState.powerOutput = 0;
-        addEventLog('原子炉を停止しました。', 'warning');
-        updateUI();
+// メッセージを表示する関数
+function appendMessage(message, isUser = false) {
+    const chatMessages = document.getElementById('chat-messages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+    
+    const messageContent = document.createElement('div');
+    messageContent.className = 'message-content';
+    messageContent.textContent = message;
+    
+    messageDiv.appendChild(messageContent);
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// 利用可能なモデルを確認
+async function checkAvailableModels() {
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models?key=${GEMINI_API_KEY}`);
+        const data = await response.json();
+        
+        if (data.error) {
+            throw new Error(data.error.message);
+        }
+
+        // gemini-1.5-flashモデルを探す
+        const model = data.models?.find(m => m.name.includes('gemini-1.5-flash'));
+        
+        if (!model) {
+            // fallbackとしてgemini-1.5-proを試す
+            const fallbackModel = data.models?.find(m => m.name.includes('gemini-1.5-pro'));
+            if (!fallbackModel) {
+                throw new Error('適切なモデルが見つかりませんでした');
+            }
+            return fallbackModel.name;
+        }
+
+        return model.name;
+    } catch (error) {
+        console.error('モデル確認エラー:', error);
+        throw error;
     }
-};
+}
 
-document.getElementById('adjust-control-rods').onclick = () => {
-    if (gameState.isRunning) {
-        gameState.powerOutput = Math.max(0, Math.min(1000,
-            gameState.powerOutput + (Math.random() - 0.5) * 100));
-        addEventLog('制御棒を調整しました。');
-        updateUI();
+// Gemini APIを使用して回答を生成
+async function generateResponse(query) {
+    try {
+        // 利用可能なモデルを確認
+        const modelName = await checkAvailableModels();
+        
+        const prompt = `
+あなたは原子力に関する専門知識を持つアシスタントとして、以下の信頼できる情報源に基づいて質問に回答してください：
+
+1. 原子力規制委員会 (www.nsr.go.jp)
+- 原子力施設の安全規制
+- 放射線モニタリング情報
+- 事故・トラブル情報
+
+2. 資源エネルギー庁 (www.enecho.meti.go.jp)
+- エネルギー政策
+- 原子力発電の現状
+- 核燃料サイクル
+
+3. 日本原子力研究開発機構 (www.jaea.go.jp)
+- 原子力科学技術
+- 安全研究
+- 放射線利用
+
+4. 電気事業連合会 (www.fepc.or.jp)
+- 原子力発電所の運転状況
+- 安全対策の取り組み
+- 環境への配慮
+
+以下の点に注意して回答してください：
+- 科学的根拠に基づいた正確な情報を提供
+- 専門用語は分かりやすく説明
+- 中立的な立場を保持
+- 必要に応じて具体例を提示
+- 安全性に関する質問には慎重に対応
+
+質問: ${query}`;
+
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1/${modelName}:generateContent?key=${GEMINI_API_KEY}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{
+                        text: prompt
+                    }]
+                }],
+                generationConfig: {
+                    temperature: 0.7,
+                    maxOutputTokens: 2048,
+                    topK: 40,
+                    topP: 0.95
+                },
+                safetySettings: [
+                    {
+                        category: "HARM_CATEGORY_HARASSMENT",
+                        threshold: "BLOCK_MEDIUM_AND_ABOVE"
+                    },
+                    {
+                        category: "HARM_CATEGORY_HATE_SPEECH",
+                        threshold: "BLOCK_MEDIUM_AND_ABOVE"
+                    },
+                    {
+                        category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                        threshold: "BLOCK_MEDIUM_AND_ABOVE"
+                    },
+                    {
+                        category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+                        threshold: "BLOCK_MEDIUM_AND_ABOVE"
+                    }
+                ]
+            })
+        });
+
+        const data = await response.json();
+        
+        if (data.error) {
+            throw new Error(data.error.message);
+        }
+
+        if (!data.candidates || data.candidates.length === 0 || !data.candidates[0].content) {
+            throw new Error('回答の生成に失敗しました');
+        }
+
+        const answer = data.candidates[0].content.parts[0].text;
+        return answer.trim();
+    } catch (error) {
+        console.error('Geminiエラー:', error);
+        throw error;
     }
-};
+}
 
-document.getElementById('check-systems').onclick = () => {
-    const status = Math.random() > 0.2 ? '正常' : '要点検';
-    addEventLog(`システム点検結果: ${status}`);
-    gameState.coolingStatus = status;
-    updateUI();
-};
+// 送信ボタンのイベントリスナー
+document.getElementById('send-button').addEventListener('click', handleSubmit);
 
-document.getElementById('contact-staff').onclick = () => {
-    const selectedStaff = document.getElementById('staff-select').value;
-    const staff_member = staff[selectedStaff];
-    const isEmergency = gameState.coreTemp > 800;
-    const responses = staff_member.responses[isEmergency ? 'emergency' : 'normal'];
-    const response = responses[Math.floor(Math.random() * responses.length)];
-    addChatMessage(staff_member.name, response);
-};
-
-// モーダルの外側をクリックして閉じる
-document.getElementById('modal').onclick = (e) => {
-    if (e.target.id === 'modal') {
-        e.target.style.display = 'none';
+// テキストエリアでのEnterキー処理
+document.getElementById('user-input').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSubmit();
     }
-};
+});
 
-// ゲームループの開始
-setInterval(updateGame, 5000); // 5秒ごとに更新
+// 送信処理
+async function handleSubmit() {
+    const inputElement = document.getElementById('user-input');
+    const userMessage = inputElement.value.trim();
+    
+    if (userMessage === '') return;
+    if (!GEMINI_API_KEY) {
+        showModal();
+        return;
+    }
+    
+    // ユーザーメッセージを表示
+    appendMessage(userMessage, true);
+    
+    // 入力欄をクリア
+    inputElement.value = '';
+    
+    // 「考え中」メッセージを表示
+    const thinkingMsg = document.createElement('div');
+    thinkingMsg.className = 'message bot thinking';
+    thinkingMsg.textContent = '回答を生成中です...';
+    document.getElementById('chat-messages').appendChild(thinkingMsg);
+
+    try {
+        // 回答を生成
+        const answer = await generateResponse(userMessage);
+        
+        // 「考え中」メッセージを削除
+        thinkingMsg.remove();
+        
+        // 回答を表示
+        appendMessage(answer, false);
+
+    } catch (error) {
+        console.error('エラー:', error);
+        thinkingMsg.remove();
+        appendMessage(`エラーが発生しました：${error.message}`, false);
+    }
+}
+
+// ページ読み込み時の初期化
+window.addEventListener('load', () => {
+    loadAPIKeys();
+    document.getElementById('user-input').focus();
+});

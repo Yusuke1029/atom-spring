@@ -3,74 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>原子力発電所シミュレータ</title>
+    <title>原子力FAQ チャットボット</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>原子力発電所シミュレータ</h1>
-            <div id="game-time">経過時間: <span id="time">0</span>日</div>
+            <h1>原子力FAQ チャットボット</h1>
+            <p class="subtitle">原子力に関する質問にお答えします</p>
+            <button id="settings-button" class="settings-button">APIキー設定</button>
         </header>
+        
+        <main class="chat-container">
+            <div id="chat-messages" class="chat-messages">
+                <div class="message bot">
+                    <div class="message-content">
+                        こんにちは！原子力に関する質問にお答えします。
+                        以下のような質問にお答えできます：
+                        ・原子力発電の仕組み
+                        ・安全対策について
+                        ・放射線の影響
+                        ・原子力発電所の現状
+                        など
 
-        <div class="main-grid">
-            <div class="parameters panel">
-                <h2>運転パラメータ</h2>
-                <div class="parameter">
-                    <label>炉心温度:</label>
-                    <span id="core-temp">300</span>°C
-                </div>
-                <div class="parameter">
-                    <label>出力:</label>
-                    <span id="power-output">0</span>MW
-                </div>
-                <div class="parameter">
-                    <label>燃料状態:</label>
-                    <span id="fuel-status">良好</span>
-                </div>
-                <div class="parameter">
-                    <label>冷却システム:</label>
-                    <span id="cooling-status">正常</span>
+                        ※信頼できる情報源に基づいて回答を生成します。
+                    </div>
                 </div>
             </div>
+            
+            <div class="input-container">
+                <textarea id="user-input" placeholder="質問を入力してください..." rows="3"></textarea>
+                <button id="send-button">送信</button>
+            </div>
+        </main>
 
-            <div class="controls panel">
-                <h2>制御パネル</h2>
-                <div class="control-buttons">
-                    <button id="start-reactor">原子炉起動</button>
-                    <button id="shutdown-reactor">緊急停止</button>
-                    <button id="adjust-control-rods">制御棒調整</button>
-                    <button id="check-systems">システム点検</button>
+        <footer>
+            <p>※このチャットボットは、信頼できる情報源に基づいて回答を提供します。</p>
+            <p>※医療や緊急時の判断には使用しないでください。</p>
+        </footer>
+    </div>
+
+    <!-- APIキー設定モーダル -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <h2>APIキー設定</h2>
+            <form id="api-settings-form">
+                <div class="form-group">
+                    <label for="gemini-key">Google AI Studio APIキー:</label>
+                    <input type="password" id="gemini-key" required>
+                    <p class="help-text">※APIキーは安全に保管され、ブラウザのローカルストレージに保存されます。</p>
                 </div>
-            </div>
-
-            <div class="events panel">
-                <h2>イベントログ</h2>
-                <div id="event-log" class="scrollable"></div>
-            </div>
-
-            <div class="chat panel">
-                <h2>スタッフ通信</h2>
-                <div id="chat-log" class="scrollable"></div>
-                <div class="chat-input">
-                    <select id="staff-select">
-                        <option value="engineer">主任技術者</option>
-                        <option value="safety">安全管理官</option>
-                        <option value="operator">運転員</option>
-                    </select>
-                    <button id="contact-staff">スタッフに連絡</button>
+                <div class="modal-buttons">
+                    <button type="submit">保存</button>
+                    <button type="button" class="close-modal">キャンセル</button>
                 </div>
-            </div>
-        </div>
-
-        <div id="modal" class="modal">
-            <div class="modal-content">
-                <h2 id="modal-title"></h2>
-                <p id="modal-message"></p>
-                <div id="modal-options"></div>
-            </div>
+            </form>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
