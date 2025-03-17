@@ -3,55 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>原子力FAQ チャットボット</title>
+    <title>アトムの泉 - 原子力について楽しく学ぼう！</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>原子力FAQ チャットボット</h1>
-            <p class="subtitle">原子力に関する質問にお答えします</p>
-            <button id="settings-button" class="settings-button">APIキー設定</button>
+            <div class="logo-container">
+                <div class="atom-animation">
+                    <div class="electron e1"></div>
+                    <div class="electron e2"></div>
+                    <div class="electron e3"></div>
+                    <div class="nucleus"></div>
+                </div>
+                <h1>アトムの泉</h1>
+            </div>
+            <p class="subtitle">原子力について、アトムくんと一緒に楽しく学ぼう！</p>
+            <button id="settings-button" class="settings-button">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                    <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/>
+                </svg>
+            </button>
         </header>
         
         <main class="chat-container">
             <div id="chat-messages" class="chat-messages">
                 <div class="message bot">
+                    <div class="message-character">
+                        <div class="atom-character">
+                            <div class="atom-body">
+                                <div class="atom-eye left"><div class="atom-pupil"></div></div>
+                                <div class="atom-eye right"><div class="atom-pupil"></div></div>
+                                <div class="atom-arm left"></div>
+                                <div class="atom-arm right"></div>
+                                <div class="atom-leg left"></div>
+                                <div class="atom-leg right"></div>
+                            </div>
+                        </div>
+                        <div class="character-name">アトムくん</div>
+                    </div>
                     <div class="message-content">
-                        こんにちは！原子力に関する質問にお答えします。
-                        以下のような質問にお答えできます：
-                        ・原子力発電の仕組み
-                        ・安全対策について
-                        ・放射線の影響
-                        ・原子力発電所の現状
-                        など
+                        こんにちは！ぼくはアトムくん！
+                        原子力のことならなんでも聞いてね！
 
-                        ※信頼できる情報源に基づいて回答を生成します。
+                        例えばこんなことを教えられるよ：
+                        ・原子力発電のしくみ
+                        ・安全対策について
+                        ・放射線のはなし
+                        ・発電所のようす
+
+                        むずかしい話も、できるだけわかりやすく説明するね！ 😊
                     </div>
                 </div>
             </div>
             
             <div class="input-container">
-                <textarea id="user-input" placeholder="質問を入力してください..." rows="3"></textarea>
-                <button id="send-button">送信</button>
+                <textarea id="user-input" placeholder="アトムくんに質問してみよう！" rows="3"></textarea>
+                <button id="send-button">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-linejoin="round" stroke-linecap="round"/>
+                    </svg>
+                </button>
             </div>
         </main>
 
         <footer>
-            <p>※このチャットボットは、信頼できる情報源に基づいて回答を提供します。</p>
-            <p>※医療や緊急時の判断には使用しないでください。</p>
+            <p>※信頼できる情報源に基づいて回答します。医療や緊急時の判断には使用しないでください。</p>
         </footer>
     </div>
 
-    <!-- APIキー設定モーダル -->
+    <!-- 設定モーダル -->
     <div id="settings-modal" class="modal">
         <div class="modal-content">
-            <h2>APIキー設定</h2>
+            <h2>設定</h2>
             <form id="api-settings-form">
                 <div class="form-group">
                     <label for="gemini-key">Google AI Studio APIキー:</label>
                     <input type="password" id="gemini-key" required>
-                    <p class="help-text">※APIキーは安全に保管され、ブラウザのローカルストレージに保存されます。</p>
+                    <p class="help-text">※APIキーは安全に保管され、ブラウザ内に保存されます。</p>
                 </div>
                 <div class="modal-buttons">
                     <button type="submit">保存</button>
