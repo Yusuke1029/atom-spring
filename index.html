@@ -3,11 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>アトムの泉 - 原子力について楽しく学ぼう！</title>
+    <title>アトムの泉 - 原子力について学ぼう</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap">
 </head>
 <body>
+    <div class="menu-button">
+        <button id="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="menu-dropdown">
+            <ul>
+                <li><a href="#home">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    ホーム
+                </a></li>
+                <li><a href="#" id="nav-quiz-button">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                        <circle cx="12" cy="17" r="1"/>
+                    </svg>
+                    確認テスト
+                </a></li>
+                <li><a href="#" id="nav-settings-button">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/>
+                    </svg>
+                    設定
+                </a></li>
+            </ul>
+        </div>
+    </div>
+
     <div class="container">
         <header>
             <div class="logo-container">
@@ -18,20 +52,20 @@
                     <div class="nucleus"></div>
                 </div>
                 <h1>アトムの泉</h1>
+                <div class="atom-animation">
+                    <div class="electron e1"></div>
+                    <div class="electron e2"></div>
+                    <div class="electron e3"></div>
+                    <div class="nucleus"></div>
+                </div>
             </div>
-            <p class="subtitle">原子力について、アトムくんと一緒に楽しく学ぼう！</p>
-            <button id="settings-button" class="settings-button">
-                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
-                    <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/>
-                </svg>
-            </button>
+            <p class="subtitle">原子力について、科学的に理解を深めよう</p>
         </header>
         
         <main class="chat-container">
             <div id="chat-messages" class="chat-messages">
                 <div class="message bot">
-                    <div class="message-character">
+                    <div class="avatar">
                         <div class="atom-character">
                             <div class="atom-body">
                                 <div class="atom-eye left"><div class="atom-pupil"></div></div>
@@ -45,22 +79,27 @@
                         <div class="character-name">アトムくん</div>
                     </div>
                     <div class="message-content">
-                        こんにちは！ぼくはアトムくん！
-                        原子力のことならなんでも聞いてね！
+                        こんにちは。私はアトムです。
 
-                        例えばこんなことを教えられるよ：
-                        ・原子力発電のしくみ
-                        ・安全対策について
-                        ・放射線のはなし
-                        ・発電所のようす
+                        原子力に関する質問にお答えします。
 
-                        むずかしい話も、できるだけわかりやすく説明するね！ 😊
+                        以下のような内容について、科学的な知見に基づいて説明できます：
+
+                        ・原子力発電の原理と技術
+
+                        ・安全管理システムと対策
+
+                        ・放射線の物理的特性と影響
+
+                        ・原子力施設の運用実態
+
+                        信頼性の高い情報源に基づいて、正確な情報を提供します。
                     </div>
                 </div>
             </div>
             
             <div class="input-container">
-                <textarea id="user-input" placeholder="アトムくんに質問してみよう！" rows="3"></textarea>
+                <textarea id="user-input" placeholder="質問を入力してください" rows="3"></textarea>
                 <button id="send-button">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-linejoin="round" stroke-linecap="round"/>
@@ -89,6 +128,30 @@
                     <button type="button" class="close-modal">キャンセル</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- 確認テストモーダル -->
+    <div id="quiz-modal" class="modal">
+        <div class="modal-content quiz-content">
+            <h2>確認テスト</h2>
+            <div id="quiz-container">
+                <div id="quiz-progress">問題 <span id="current-question">1</span>/5</div>
+                <div id="quiz-question"></div>
+                <div id="quiz-options"></div>
+                <div id="quiz-feedback" class="hidden"></div>
+                <div class="quiz-buttons">
+                    <button id="quiz-next" class="hidden">次の問題へ</button>
+                    <button id="quiz-finish" class="hidden">結果を見る</button>
+                    <button id="quiz-home" class="hidden">ホームに戻る</button>
+                </div>
+            </div>
+            <div id="quiz-results" class="hidden">
+                <h3>テスト結果</h3>
+                <p>正解数: <span id="correct-count">0</span>/5</p>
+                <div id="results-feedback"></div>
+                <button id="return-home">ホームに戻る</button>
+            </div>
         </div>
     </div>
 
