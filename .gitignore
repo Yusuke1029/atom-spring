@@ -1,0 +1,18 @@
+# 一時ファイル
+.DS_Store
+Thumbs.db
+
+# APIキー関連
+.env
+.env.local
+
+# エディタ設定
+.vscode/
+.idea/
+
+# ログファイル
+*.log
+
+# Node.js
+node_modules/
+dist/
