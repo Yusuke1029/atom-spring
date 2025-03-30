@@ -1,0 +1,54 @@
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
+
+# React Nativeのポッドをインストールする際の警告を抑制
+inhibit_all_warnings!
+
+target 'AtomSpring' do
+  config = use_native_modules!
+
+  # React Native の依存関係
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # Hermes有効化
+    :hermes_enabled => true,
+    # ファブリック有効化（新アーキテクチャ）
+    :fabric_enabled => false,
+    # Flipper有効化（デバッグツール）
+    :flipper_configuration => FlipperConfiguration.enabled,
+    # 新アーキテクチャを有効化する場合は true に設定
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  # 追加のポッド
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  
+  # テスト用ターゲット
+  target 'AtomSpringTests' do
+    inherit! :complete
+  end
+
+  post_install do |installer|
+    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false
+    )
+    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+    
+    # ポッドのビルド設定
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        # Deploymentターゲットの設定
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.4'
+        
+        # ARM64アーキテクチャのサポート
+        config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+      end
+    end
+  end
+end

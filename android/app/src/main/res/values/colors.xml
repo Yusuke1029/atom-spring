@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#3498db</color>
+    <color name="secondary">#2980b9</color>
+    <color name="background">#f8fafc</color>
+    <color name="text">#2d3748</color>
+    <color name="border">#e2e8f0</color>
+    <color name="bot_message">#ebf8ff</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="correct">#10B981</color>
+    <color name="incorrect">#EF4444</color>
+</resources>
