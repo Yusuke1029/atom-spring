@@ -1,118 +1,145 @@
-# アトムの泉 - モバイルアプリ
+# アトムの泉 Webアプリケーション
 
-原子力について、科学的に理解を深めるためのモバイルアプリケーション
+原子力について科学的に理解を深めるための学習プラットフォーム
 
-## 特徴
+## 機能
 
-- 原子力に関する質問に対する分かりやすい回答
-- 信頼できる情報源に基づく説明
-- 理解度を確認できるクイズ機能
-- オフライン動作対応
-- クロスプラットフォーム対応（iOS/Android）
+- 📚 体系的な学習コンテンツ
+- 🎯 理解度確認クイズ
+- 📊 進捗管理
+- 📱 PWA対応（オフライン学習可能）
 
-## 必要な環境
+## 技術スタック
+
+- フロントエンド
+  - HTML5 / CSS3
+  - JavaScript (ES6+)
+  - Service Worker (PWA)
+  - Webpack
+
+- バックエンド
+  - Node.js
+  - Express
+  - SQLite3
+
+## 開発環境のセットアップ
+
+### 必要条件
 
 - Node.js 14.0.0以上
-- Java Development Kit (JDK) 11以上
-- Android Studio（Androidビルド用）
-- Xcode（iOSビルド用、Macのみ）
-- CocoaPods（iOSビルド用、Macのみ）
+- npm 6.0.0以上
 
-## セットアップ手順
+### インストール
 
-1. プロジェクトのクローン:
 ```bash
+# リポジトリのクローン
 git clone https://github.com/yourusername/atom-spring.git
 cd atom-spring
+
+# 依存パッケージのインストール
+npm install
+
+# 開発サーバーの起動
+npm run dev
 ```
 
-2. 依存関係のインストール:
-```bash
-node setup.js
+### 環境変数の設定
+
+`.env`ファイルを作成し、必要な環境変数を設定:
+
+```env
+# サーバー設定
+PORT=3000
+NODE_ENV=development
+
+# データベース設定
+DB_PATH=./data/database.sqlite
 ```
 
-3. iOS用の追加セットアップ（Macのみ）:
-```bash
-cd ios
-pod install
-cd ..
-```
+## ビルドとデプロイ
 
-4. Google AI Studio APIキーの設定:
-- [Google AI Studio](https://makersuite.google.com/)からAPIキーを取得
-- アプリ内の設定画面でAPIキーを入力
-
-## 開発用サーバーの起動
+### 本番用ビルド
 
 ```bash
-# Metro サーバーの起動
+# 本番用ビルド
+npm run build
+
+# 本番サーバー起動
 npm start
-
-# 別のターミナルで以下のいずれかを実行
-npm run android  # Androidアプリの起動
-npm run ios     # iOSアプリの起動（Macのみ）
 ```
 
-## ビルド手順
+### デプロイ
 
-### Android
-
-1. キーストアの生成:
 ```bash
-cd android/app
-keytool -genkey -v -keystore release.keystore -alias atom-spring -keyalg RSA -keysize 2048 -validity 10000
+# 本番環境へのデプロイ
+npm run deploy
 ```
 
-2. リリースビルドの作成:
+## プロジェクト構成
+
+```
+.
+├── content/          # 学習コンテンツ
+├── public/          # 静的ファイル
+├── src/            # ソースコード
+├── server.js       # サーバーエントリーポイント
+└── webpack.config.js  # Webpack設定
+```
+
+## 開発ガイドライン
+
+### コーディング規約
+
+- ESLintとPrettierを使用
+- コミット前に`npm run lint`を実行
+
+### テスト
+
 ```bash
-cd android
-./gradlew assembleRelease
+# テストの実行
+npm test
+
+# カバレッジレポートの生成
+npm run test:coverage
 ```
 
-3. 生成されたAPKの場所:
-```
-android/app/build/outputs/apk/release/app-release.apk
-```
+### ブランチ戦略
 
-### iOS（Macのみ）
+- `main`: 本番環境用
+- `develop`: 開発用
+- `feature/*`: 新機能開発用
+- `hotfix/*`: バグ修正用
 
-1. Xcodeでプロジェクトを開く:
-```bash
-cd ios
-open AtomSpring.xcworkspace
-```
+## コントリビューション
 
-2. Xcode経由でアーカイブとアップロード
+1. このリポジトリをフォーク
+2. 新しいブランチを作成 (`git checkout -b feature/amazing-feature`)
+3. 変更をコミット (`git commit -m 'Add some amazing feature'`)
+4. ブランチにプッシュ (`git push origin feature/amazing-feature`)
+5. プルリクエストを作成
 
-## プロジェクト構造
+## トラブルシューティング
 
-```
-atom-spring/
-├── src/
-│   ├── components/     # 再利用可能なコンポーネント
-│   ├── screens/       # 画面コンポーネント
-│   ├── utils/         # ユーティリティ関数
-│   └── assets/        # 画像などのリソース
-├── android/           # Androidプロジェクト
-└── ios/              # iOSプロジェクト
-```
+### よくある問題
 
-## 情報源
+1. 開発サーバーが起動しない
+   ```bash
+   # ポート競合の確認
+   lsof -i :3000
+   ```
 
-アプリケーションは以下の信頼できる情報源に基づいて回答を提供します：
-
-- 原子力規制委員会 (www.nsr.go.jp)
-- 資源エネルギー庁 (www.enecho.meti.go.jp)
-- 日本原子力研究開発機構 (www.jaea.go.jp)
-- 日本原子力学会 (www.aesj.net)
-- その他学術機関や査読済み論文
-
-## 注意事項
-
-- このアプリは教育目的で作成されています
-- 医療や緊急時の判断には使用しないでください
-- APIキーは安全に管理してください
+2. ビルドエラー
+   ```bash
+   # 依存関係の再インストール
+   rm -rf node_modules
+   npm install
+   ```
 
 ## ライセンス
 
-MIT License - 詳細は[LICENSE](./LICENSE)ファイルを参照してください。
+Copyright © 2025 アトムの泉
+
+## サポート
+
+- 開発者向けサポート: dev-support@atomspring.example.com
+- 一般的な質問: support@atomspring.example.com

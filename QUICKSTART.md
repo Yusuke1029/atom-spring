@@ -1,133 +1,122 @@
 # アトムの泉 クイックスタートガイド
 
-## 必要な環境
+## 必要条件
 
-### 共通要件
 - Node.js 14.0.0以上
 - npm 6.0.0以上
-- Git
+- モダンブラウザ（Chrome, Firefox, Safari, Edge）
 
-### iOS開発用（Macのみ）
-- macOS Catalina (10.15)以上
-- Xcode 14.0以上
-- CocoaPods
-- iOS Developer Account
+## インストール
 
-### Android開発用
-- Android Studio
-- Java Development Kit (JDK) 11以上
-- Android SDK
-- Android Virtual Device または実機
-
-## セットアップ手順
-
-1. プロジェクトのクローン
 ```bash
+# リポジトリのクローン
 git clone https://github.com/yourusername/atom-spring.git
 cd atom-spring
-```
 
-2. 依存関係のインストール
-```bash
-# npm パッケージのインストール
+# 依存パッケージのインストール
 npm install
-
-# iOSの依存関係インストール（Macのみ）
-cd ios && pod install && cd ..
 ```
 
-3. 環境変数の設定
+## 開発環境の起動
+
 ```bash
-# .env ファイルを作成
-cp .env.example .env
-
-# API キーを設定
-# エディタで .env を開き、必要な値を設定
+# 開発サーバーの起動
+npm run dev
 ```
 
-## 開発用アプリの実行
+ブラウザで http://localhost:3000 を開いてアプリケーションにアクセスできます。
 
-### iOSシミュレータで実行（Macのみ）
+## 本番環境へのデプロイ
+
 ```bash
-npm run ios
+# 本番用ビルド
+npm run build
+
+# デプロイスクリプトの実行
+./scripts/deploy.sh
 ```
 
-### Androidエミュレータで実行
+## アプリケーションの構造
+
+```
+.
+├── public/          # 静的ファイル
+├── content/         # 学習コンテンツ
+├── config/          # 設定ファイル
+├── scripts/         # デプロイスクリプト
+└── src/            # ソースコード
+```
+
+## 主な機能
+
+1. 学習コンテンツ
+- 原子力の基礎知識
+- 段階的な学習システム
+- マルチメディアコンテンツ
+
+2. クイズ機能
+- 理解度チェック
+- 即時フィードバック
+- 進捗管理
+
+3. PWA機能
+- オフライン対応
+- ホーム画面への追加
+- プッシュ通知
+
+## 開発の進め方
+
+1. ブランチ戦略
 ```bash
-npm run android
+# 新機能の開発
+git checkout -b feature/new-feature
+
+# バグ修正
+git checkout -b hotfix/bug-fix
 ```
 
-### 実機でのテスト
+2. コードの品質管理
+```bash
+# リントの実行
+npm run lint
 
-#### iOS実機（Macのみ）
-1. Xcodeでデバイスを接続
-2. 証明書の設定
-3. `npm run ios -- --device`
+# テストの実行
+npm test
+```
 
-#### Android実機
-1. USBデバッグを有効化
-2. デバイスを接続
-3. `npm run android`
+3. ビルドとデプロイ
+```bash
+# 本番用ビルド
+npm run build
+
+# デプロイ
+npm run deploy
+```
 
 ## トラブルシューティング
 
-### ビルドエラー
+1. 開発サーバーが起動しない
+```bash
+# 依存関係の再インストール
+rm -rf node_modules
+npm install
+```
+
+2. ビルドエラー
 ```bash
 # キャッシュのクリア
-npm start -- --reset-cache
-
-# iOS（Macのみ）
-cd ios
-pod deintegrate
-pod install
-cd ..
-
-# Android
-cd android
-./gradlew clean
-cd ..
+npm run clean
+npm run build
 ```
 
-### 実行時エラー
-1. Metro serverの再起動
+3. データベースエラー
 ```bash
-npm start -- --reset-cache
+# データベースの初期化
+npm run db:init
 ```
 
-2. アプリの再インストール
-```bash
-# iOS（Macのみ）
-cd ios
-xcodebuild -workspace AtomSpring.xcworkspace -scheme AtomSpring clean
-cd ..
+## サポートとヘルプ
 
-# Android
-cd android
-./gradlew clean
-cd ..
-```
-
-## アプリのビルド
-
-### iOSのリリースビルド（Macのみ）
-```bash
-cd ios
-./upload_to_appstore.sh
-```
-
-### Androidのリリースビルド
-```bash
-cd android
-./gradlew assembleRelease
-```
-
-リリースAPKは以下の場所に生成されます：
-`android/app/build/outputs/apk/release/app-release.apk`
-
-## 参考リンク
-
-- [React Native 公式ドキュメント](https://reactnative.dev/docs/getting-started)
-- [iOS開発者ポータル](https://developer.apple.com/ios)
-- [Android開発者ポータル](https://developer.android.com)
-- [App Store Connect](https://appstoreconnect.apple.com)
-- [Google Play Console](https://play.google.com/console)
+- ドキュメント: /docs
+- 開発者フォーラム: https://forum.atomspring.example.com
+- メール: dev-support@atomspring.example.com

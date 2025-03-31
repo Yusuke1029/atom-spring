@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アトムの泉 - インストール手順</title>
+    <link rel="stylesheet" href="print-guide.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>アトムの泉アプリ</h1>
+            <p>簡単インストールガイド</p>
+        </div>
+
+        <div class="qr-section">
+            <div class="qr-container">
+                <div id="qrcode" class="qr-code"></div>
+                <p class="qr-caption">このQRコードを読み取ってインストール</p>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <div class="step">
+                <span class="step-number">1</span>
+                <div class="step-text">
+                    iPhoneのカメラでQRコードを読み取る
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <div class="step-text">
+                    TestFlightをインストール<br>
+                    <small>※ まだインストールしていない場合のみ</small>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <div class="step-text">
+                    「アトムの泉」アプリをインストール
+                </div>
+            </div>
+        </div>
+
+        <div class="notes">
+            <h2>確認事項</h2>
+            <ul>
+                <li>✓ iOS 12.4以上</li>
+                <li>✓ インターネット接続</li>
+                <li>✓ 200MB以上の空き容量</li>
+            </ul>
+        </div>
+
+        <div class="support">
+            <h2>サポート窓口</h2>
+            <p>
+                困ったときは以下にご連絡ください：<br>
+                メール：support@atomspring.example.com<br>
+                LINE：@atomspring
+            </p>
+        </div>
+
+        <div class="button-container no-print">
+            <button onclick="window.print()" class="print-button">
+                印刷する
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        window.onload = function() {
+            // TestFlightのベータ版リンク
+            const betaLink = 'https://testflight.apple.com/join/yourAppLink';
+            
+            // QRコード生成
+            new QRCode(document.getElementById("qrcode"), {
+                text: betaLink,
+                width: 180,
+                height: 180,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        };
+    </script>
+</body>
+</html>

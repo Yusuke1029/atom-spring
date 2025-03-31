@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アトムの泉 - インストール手順動画</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 アスペクト比 */
+            height: 0;
+            overflow: hidden;
+            background: #000;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .step-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .step-number {
+            background: #3498db;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .step-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .timestamp {
+            color: #3498db;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .note {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+            .video-container {
+                padding: 10px;
+            }
+            .step-container {
+                margin: 20px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <div class="video-wrapper">
+            <div class="video-placeholder">
+                <h2>インストール手順動画</h2>
+                <p>簡単2ステップでインストール</p>
+            </div>
+        </div>
+
+        <div class="step-container">
+            <h2 style="color: #3498db; text-align: center; margin-bottom: 30px;">
+                インストール手順
+            </h2>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <div class="step-title">TestFlightのインストール</div>
+                    <div class="step-description">
+                        App Storeで「TestFlight」を検索し、インストールします。
+                    </div>
+                    <div class="timestamp">0:00 - 0:30</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <div class="step-title">QRコードの読み取り</div>
+                    <div class="step-description">
+                        iPhoneのカメラでQRコードを読み取ります。TestFlightが開きます。
+                    </div>
+                    <div class="timestamp">0:31 - 1:00</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <div class="step-title">アプリのインストール</div>
+                    <div class="step-description">
+                        TestFlightでアプリをインストールします。完了したらアプリを開きます。
+                    </div>
+                    <div class="timestamp">1:01 - 1:30</div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>注意事項：</strong><br>
+                • iOS 12.4以上が必要です<br>
+                • WiFiに接続していることを確認してください<br>
+                • 200MB以上の空き容量が必要です
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 将来的に動画を追加する場合のプレースホルダー
+        document.addEventListener('DOMContentLoaded', function() {
+            // 動画の読み込みコードをここに追加
+        });
+    </script>
+</body>
+</html>

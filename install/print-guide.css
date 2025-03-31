@@ -1,0 +1,150 @@
+/* 印刷用スタイル */
+@media print {
+    /* 基本設定 */
+    body {
+        margin: 0;
+        padding: 20mm;
+        font-family: -apple-system, "Hiragino Sans", sans-serif;
+        color: #000;
+        background: #fff;
+    }
+
+    /* A4サイズに最適化 */
+    @page {
+        size: A4;
+        margin: 20mm;
+    }
+
+    /* ヘッダー */
+    .header {
+        text-align: center;
+        margin-bottom: 30mm;
+    }
+
+    .header h1 {
+        font-size: 24pt;
+        color: #3498db;
+        margin: 0 0 5mm 0;
+    }
+
+    .header p {
+        font-size: 12pt;
+        color: #666;
+    }
+
+    /* QRコード */
+    .qr-section {
+        text-align: center;
+        margin: 20mm 0;
+    }
+
+    .qr-code {
+        width: 50mm;
+        height: 50mm;
+        margin: 0 auto;
+    }
+
+    /* インストール手順 */
+    .instructions {
+        margin: 20mm 0;
+    }
+
+    .step {
+        margin-bottom: 10mm;
+        page-break-inside: avoid;
+    }
+
+    .step-number {
+        display: inline-block;
+        width: 8mm;
+        height: 8mm;
+        background: #3498db;
+        color: white;
+        text-align: center;
+        line-height: 8mm;
+        border-radius: 50%;
+        margin-right: 3mm;
+    }
+
+    .step-text {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+
+    /* 注意事項 */
+    .notes {
+        margin-top: 20mm;
+        padding-top: 5mm;
+        border-top: 0.5pt solid #ccc;
+    }
+
+    .notes h2 {
+        font-size: 14pt;
+        color: #666;
+        margin-bottom: 5mm;
+    }
+
+    .notes ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .notes li {
+        font-size: 10pt;
+        color: #666;
+        margin-bottom: 2mm;
+    }
+
+    /* サポート情報 */
+    .support {
+        margin-top: 20mm;
+        text-align: center;
+        font-size: 10pt;
+        color: #666;
+    }
+
+    /* 非印刷要素 */
+    .no-print {
+        display: none !important;
+    }
+}
+
+/* 画面表示用スタイル */
+@media screen {
+    .print-only {
+        display: none !important;
+    }
+}
+
+/* 共通スタイル */
+body {
+    font-family: -apple-system, "Hiragino Sans", sans-serif;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.button-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.print-button {
+    display: inline-block;
+    background: #3498db;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+}
+
+.print-button:hover {
+    background: #2980b9;
+}

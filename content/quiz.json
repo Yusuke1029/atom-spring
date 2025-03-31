@@ -1,0 +1,127 @@
+{
+    "quizzes": [
+        {
+            "id": "basic-1",
+            "title": "原子力の基礎",
+            "description": "原子の構造と基本的な性質について学びましょう",
+            "questions": [
+                {
+                    "id": "q1",
+                    "type": "multiple-choice",
+                    "question": "原子核を構成する粒子は次のうちどれですか？",
+                    "options": [
+                        "陽子と中性子",
+                        "電子と陽子",
+                        "中性子と電子",
+                        "陽子のみ"
+                    ],
+                    "correct": 0,
+                    "explanation": "原子核は陽子と中性子から構成されています。電子は原子核の周りを軌道運動しています。"
+                },
+                {
+                    "id": "q2",
+                    "type": "true-false",
+                    "question": "中性子は電荷を持っていない",
+                    "correct": true,
+                    "explanation": "中性子は名前の通り、電気的に中性で電荷を持ちません。"
+                },
+                {
+                    "id": "q3",
+                    "type": "multiple-choice",
+                    "question": "電子の電荷は何ですか？",
+                    "options": [
+                        "正の電荷",
+                        "負の電荷",
+                        "電荷なし",
+                        "状況による"
+                    ],
+                    "correct": 1,
+                    "explanation": "電子は負の電荷を持つ基本粒子です。"
+                }
+            ]
+        },
+        {
+            "id": "basic-2",
+            "title": "核反応の基礎",
+            "description": "核分裂と核融合について理解を深めましょう",
+            "questions": [
+                {
+                    "id": "q4",
+                    "type": "multiple-choice",
+                    "question": "核分裂反応で放出されるものは？",
+                    "options": [
+                        "中性子のみ",
+                        "陽子のみ",
+                        "中性子とエネルギー",
+                        "電子のみ"
+                    ],
+                    "correct": 2,
+                    "explanation": "核分裂反応では中性子とともに大量のエネルギーが放出されます。"
+                },
+                {
+                    "id": "q5",
+                    "type": "multiple-select",
+                    "question": "核融合反応に関する正しい説明を選んでください（複数選択可）",
+                    "options": [
+                        "軽い原子核同士が融合する",
+                        "エネルギーを放出する",
+                        "太陽で起きている反応である",
+                        "常温で簡単に起こる"
+                    ],
+                    "correct": [0, 1, 2],
+                    "explanation": "核融合反応は、軽い原子核同士が融合してエネルギーを放出する反応で、太陽の中心部で起きています。"
+                }
+            ]
+        }
+    ],
+    "categories": [
+        {
+            "id": "basic",
+            "name": "基礎知識",
+            "description": "原子力の基本的な概念を学ぶ",
+            "order": 1
+        },
+        {
+            "id": "intermediate",
+            "name": "応用知識",
+            "description": "より深い理解を目指す",
+            "order": 2
+        },
+        {
+            "id": "advanced",
+            "name": "発展",
+            "description": "専門的な内容にチャレンジ",
+            "order": 3
+        }
+    ],
+    "achievements": [
+        {
+            "id": "first-quiz",
+            "title": "はじめの一歩",
+            "description": "最初のクイズを完了",
+            "icon": "/icons/first-step.svg",
+            "points": 10
+        },
+        {
+            "id": "perfect",
+            "title": "パーフェクト",
+            "description": "全問正解を達成",
+            "icon": "/icons/perfect.svg",
+            "points": 50
+        },
+        {
+            "id": "master",
+            "title": "マスター",
+            "description": "全カテゴリーでパーフェクトを達成",
+            "icon": "/icons/master.svg",
+            "points": 100
+        }
+    ],
+    "settings": {
+        "timeLimit": 300,
+        "passScore": 80,
+        "showExplanation": true,
+        "shuffleQuestions": true,
+        "shuffleOptions": true
+    }
+}

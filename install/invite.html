@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アトムの泉 - インストール招待</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #3498db;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .step {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #ebf8ff;
+            border-radius: 10px;
+        }
+
+        .step h2 {
+            color: #2c5282;
+            margin-top: 0;
+        }
+
+        .invite-form {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+
+        .note h3 {
+            color: #856404;
+            margin-top: 0;
+        }
+
+        .timeline {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+
+        .timeline h3 {
+            color: #2d3748;
+            margin-top: 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: #3498db;
+            border-radius: 50%;
+            margin-right: 15px;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-time {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            input[type="email"] {
+                width: calc(100% - 24px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>アトムの泉アプリ<br>インストール招待</h1>
+
+        <div class="step">
+            <h2>招待コードの取得方法</h2>
+            <p>以下のメールアドレスに招待を送信します。</p>
+            
+            <div class="invite-form">
+                <input type="email" placeholder="メールアドレスを入力" id="email">
+                <button onclick="requestInvite()">招待を依頼</button>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <h3>インストール手順</h3>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-time">Step 1</div>
+                    <p>招待メールが届きます（通常5分以内）</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-time">Step 2</div>
+                    <p>メール内のリンクをタップしてTestFlightをインストール</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-time">Step 3</div>
+                    <p>TestFlightでアプリをインストール</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="note">
+            <h3>注意事項</h3>
+            <ul>
+                <li>招待メールの有効期限は7日間です</li>
+                <li>iOS 12.4以上のiPhoneが必要です</li>
+                <li>TestFlightを使用するには、Apple IDが必要です</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function requestInvite() {
+            const email = document.getElementById('email').value;
+            if (!email) {
+                alert('メールアドレスを入力してください');
+                return;
+            }
+            
+            // ここで実際の招待処理を行う
+            // 例：APIを呼び出して招待を送信
+            alert('招待リクエストを受け付けました。\nまもなくメールが届きます。');
+        }
+    </script>
+</body>
+</html>

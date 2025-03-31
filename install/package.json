@@ -1,0 +1,47 @@
+{
+  "name": "atom-spring-install",
+  "version": "1.0.0",
+  "description": "アトムの泉アプリのインストールシステム",
+  "main": "invite-api/index.js",
+  "scripts": {
+    "start": "node invite-api/index.js",
+    "dev": "nodemon invite-api/index.js",
+    "generate-pdf": "node generate-pdf-guide.js",
+    "deploy": "node scripts/deploy.js",
+    "setup": "node scripts/setup.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@line/bot-sdk": "^7.5.2",
+    "app-store-connect-api": "^2.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.1",
+    "pdfkit": "^0.13.0"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "private": true,
+  "author": "アトムの泉開発チーム",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/atom-spring-install.git"
+  },
+  "files": [
+    "invite-api/",
+    "scripts/",
+    "*.md",
+    "*.js"
+  ],
+  "config": {
+    "port": 3000
+  }
+}
