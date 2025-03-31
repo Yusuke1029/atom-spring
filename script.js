@@ -1,203 +1,195 @@
-// アプリケーションの状態管理
-const state = {
-    currentPage: 'home',
-    user: null,
-    quiz: {
-        currentQuestion: 0,
-        score: 0,
-        questions: []
+// アトムくんの設定
+const atomKun = {
+    expressions: {
+        happy: {
+            eyes: 'normal',
+            mouth: 'smile',
+            animation: 'bounce'
+        },
+        thinking: {
+            eyes: 'looking-up',
+            mouth: 'thinking',
+            animation: 'float'
+        },
+        excited: {
+            eyes: 'sparkle',
+            mouth: 'big-smile',
+            animation: 'jump'
+        },
+        explaining: {
+            eyes: 'normal',
+            mouth: 'talking',
+            animation: 'wave'
+        }
     },
-    progress: {
-        completed: 0,
-        total: 0
+    messages: {
+        greeting: [
+            'やあ！ぼくはアトムくん！一緒に原子力について学ぼうね！',
+            'こんにちは！今日も楽しく勉強しましょう！',
+            'みんなで楽しく科学を学びましょう！'
+        ],
+        encouragement: [
+            'その調子だよ！とってもよく理解できてるね！',
+            'すごい！その考え方は正解だよ！',
+            'よく頑張ったね！次も一緒に頑張ろう！'
+        ],
+        helping: [
+            'むずかしいところは一緒に考えていこうね',
+            'ヒントが必要なときは言ってね',
+            '少しずつ理解していけば大丈夫だよ！'
+        ],
+        explaining: [
+            'これは面白いところなんだ！',
+            'ここが重要なポイントだよ！',
+            'こうやって考えると分かりやすいよ！'
+        ]
     }
 };
 
-// ページ管理
-function navigateTo(pageId) {
-    // 現在のページを非表示
-    document.querySelector(`.page.active`).classList.remove('active');
-    
-    // 新しいページを表示
-    document.querySelector(`#${pageId}`).classList.add('active');
-    
-    // ナビゲーションの状態を更新
-    document.querySelectorAll('.app-nav a').forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${pageId}`) {
-            link.classList.add('active');
-        }
-    });
+// アプリケーションの状態管理
+const state = {
+    currentPage: 'home',
+    menuOpen: false,
+    apiKey: localStorage.getItem('apiKey') || '',
+    currentExpression: 'happy'
+};
 
-    // 状態を更新
-    state.currentPage = pageId;
-    
-    // ページ固有の初期化を実行
-    initializePage(pageId);
-}
+// DOMの読み込み完了時の初期化
+document.addEventListener('DOMContentLoaded', () => {
+    initializeApp();
+    setupEventListeners();
+    startAtomKunBehavior();
+});
 
-// ページ固有の初期化
-function initializePage(pageId) {
-    switch (pageId) {
-        case 'learn':
-            loadTopics();
-            break;
-        case 'quiz':
-            initializeQuiz();
-            break;
-        case 'profile':
-            updateProfile();
-            break;
-    }
-}
-
-// 学習コンテンツの読み込み
-async function loadTopics() {
-    try {
-        const response = await fetch('/api/topics');
-        const topics = await response.json();
-        renderTopics(topics);
-    } catch (error) {
-        console.error('Topics loading failed:', error);
-        showError('コンテンツの読み込みに失敗しました');
-    }
-}
-
-// トピックの表示
-function renderTopics(topics) {
-    const topicsGrid = document.querySelector('.topics-grid');
-    topicsGrid.innerHTML = topics.map(topic => `
-        <div class="topic-card">
-            <h3>${topic.title}</h3>
-            <p>${topic.description}</p>
-            <button class="start-topic" data-id="${topic.id}">開始</button>
-        </div>
-    `).join('');
-}
-
-// クイズの初期化
-async function initializeQuiz() {
-    try {
-        const response = await fetch('/api/quiz');
-        state.quiz.questions = await response.json();
-        state.quiz.currentQuestion = 0;
-        state.quiz.score = 0;
-        showQuestion();
-    } catch (error) {
-        console.error('Quiz loading failed:', error);
-        showError('クイズの読み込みに失敗しました');
-    }
-}
-
-// 問題の表示
-function showQuestion() {
-    const question = state.quiz.questions[state.quiz.currentQuestion];
-    const quizContainer = document.querySelector('.quiz-container');
-    
-    quizContainer.innerHTML = `
-        <h2>問題 ${state.quiz.currentQuestion + 1}</h2>
-        <div id="quiz-question">${question.text}</div>
-        <div id="quiz-options">
-            ${question.options.map((option, index) => `
-                <button class="quiz-option" data-index="${index}">
-                    ${option}
-                </button>
-            `).join('')}
-        </div>
-    `;
-
-    // オプションクリックイベントの設定
-    document.querySelectorAll('.quiz-option').forEach(button => {
-        button.addEventListener('click', handleAnswer);
-    });
-}
-
-// 回答処理
-function handleAnswer(event) {
-    const selectedIndex = event.target.dataset.index;
-    const question = state.quiz.questions[state.quiz.currentQuestion];
-    
-    if (selectedIndex == question.correct) {
-        state.quiz.score++;
-        showFeedback(true);
-    } else {
-        showFeedback(false);
-    }
-}
-
-// フィードバック表示
-function showFeedback(isCorrect) {
-    const feedback = document.createElement('div');
-    feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
-    feedback.textContent = isCorrect ? '正解！' : '不正解...';
-    
-    document.querySelector('.quiz-container').appendChild(feedback);
-    
-    setTimeout(() => {
-        feedback.remove();
-        nextQuestion();
-    }, 1500);
-}
-
-// 次の問題へ
-function nextQuestion() {
-    state.quiz.currentQuestion++;
-    if (state.quiz.currentQuestion < state.quiz.questions.length) {
-        showQuestion();
-    } else {
-        showQuizResult();
-    }
-}
-
-// クイズ結果表示
-function showQuizResult() {
-    const quizContainer = document.querySelector('.quiz-container');
-    const percentage = Math.round((state.quiz.score / state.quiz.questions.length) * 100);
-    
-    quizContainer.innerHTML = `
-        <h2>クイズ完了！</h2>
-        <p>スコア: ${state.quiz.score}/${state.quiz.questions.length} (${percentage}%)</p>
-        <button onclick="initializeQuiz()">もう一度チャレンジ</button>
-    `;
-    
-    updateProgress(percentage);
-}
-
-// 進捗更新
-function updateProgress(score) {
-    state.progress.completed++;
-    state.progress.total = Math.max(state.progress.total, state.progress.completed);
-    
-    const percentage = Math.round((state.progress.completed / state.progress.total) * 100);
-    document.querySelector('.progress-bar').style.width = `${percentage}%`;
-}
-
-// エラー表示
-function showError(message) {
-    const error = document.createElement('div');
-    error.className = 'error-message';
-    error.textContent = message;
-    
-    document.body.appendChild(error);
-    setTimeout(() => error.remove(), 3000);
+// アプリケーションの初期化
+function initializeApp() {
+    showRandomGreeting();
+    setupAtomKunInteractions();
+    restoreSettings();
 }
 
 // イベントリスナーの設定
-document.addEventListener('DOMContentLoaded', () => {
-    // ナビゲーションイベント
-    document.querySelectorAll('.app-nav a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const pageId = link.getAttribute('href').substring(1);
-            navigateTo(pageId);
-        });
+function setupEventListeners() {
+    // メニュー関連
+    const menuButton = document.querySelector('.menu-button');
+    menuButton.addEventListener('click', toggleMenu);
+    
+    // ナビゲーション
+    document.querySelectorAll('.side-menu a').forEach(link => {
+        link.addEventListener('click', handleNavigation);
     });
-
-    // 開始ボタン
-    document.querySelector('.start-button').addEventListener('click', () => {
-        navigateTo('learn');
+    
+    // クイズ関連
+    document.querySelectorAll('.quiz-option').forEach(option => {
+        option.addEventListener('click', handleQuizAnswer);
     });
+    
+    // 設定関連
+    const settingsForm = document.querySelector('.settings-form');
+    if (settingsForm) {
+        settingsForm.addEventListener('submit', handleSettingsSave);
+    }
+}
 
-    // 初期ページの表示
-    navigateTo('home');
-});
+// アトムくんの動作制御
+function setAtomExpression(expression) {
+    const config = atomKun.expressions[expression];
+    const atomKunElement = document.querySelector('.atom-kun');
+    
+    // アニメーションのリセットと適用
+    atomKunElement.style.animation = 'none';
+    atomKunElement.offsetHeight; // リフロー
+    atomKunElement.style.animation = `${config.animation} 2s infinite`;
+    
+    // 表情の更新
+    document.querySelector('.atom-eye.left').className = `atom-eye left ${config.eyes}`;
+    document.querySelector('.atom-eye.right').className = `atom-eye right ${config.eyes}`;
+    document.querySelector('.atom-mouth').className = `atom-mouth ${config.mouth}`;
+    
+    state.currentExpression = expression;
+}
+
+// メッセージの表示
+function showAtomMessage(message, type = 'greeting') {
+    const bubble = document.querySelector('.speech-bubble p');
+    const atomKunElement = document.querySelector('.atom-kun');
+    
+    // メッセージのアニメーション
+    bubble.style.animation = 'none';
+    bubble.offsetHeight; // リフロー
+    bubble.style.animation = 'pop 0.5s ease-out';
+    
+    bubble.textContent = message;
+    
+    // 表情とアニメーションの設定
+    setAtomExpression(type);
+    
+    // クリック時のインタラクション
+    atomKunElement.addEventListener('click', () => {
+        showRandomMessage(type);
+    }, { once: true });
+}
+
+// ランダムなメッセージの表示
+function showRandomMessage(type) {
+    const messages = atomKun.messages[type];
+    const randomIndex = Math.floor(Math.random() * messages.length);
+    showAtomMessage(messages[randomIndex], type);
+}
+
+// クイズの回答処理
+function handleQuizAnswer(e) {
+    const selected = e.target;
+    const isCorrect = selected.textContent === '陽子と中性子';
+    
+    if (isCorrect) {
+        showAtomMessage(atomKun.messages.encouragement[0], 'excited');
+        selected.classList.add('correct');
+    } else {
+        showAtomMessage(atomKun.messages.helping[0], 'thinking');
+        selected.classList.add('incorrect');
+    }
+    
+    // 少し待ってからリセット
+    setTimeout(() => {
+        selected.classList.remove('correct', 'incorrect');
+        showRandomMessage('greeting');
+    }, 3000);
+}
+
+// メニューの開閉
+function toggleMenu() {
+    const menuButton = document.querySelector('.menu-button');
+    const sideMenu = document.querySelector('.side-menu');
+    
+    state.menuOpen = !state.menuOpen;
+    menuButton.classList.toggle('active');
+    sideMenu.classList.toggle('active');
+    
+    // メニュー開閉時のアトムくんの反応
+    if (state.menuOpen) {
+        showAtomMessage('メニューから選んでね！', 'explaining');
+    } else {
+        showRandomMessage('greeting');
+    }
+}
+
+// アトムくんの自動的な振る舞い
+function startAtomKunBehavior() {
+    setInterval(() => {
+        if (Math.random() < 0.3) { // 30%の確率で
+            showRandomMessage('greeting');
+        }
+    }, 15000); // 15秒ごと
+}
+
+// 設定の保存
+function handleSettingsSave(e) {
+    e.preventDefault();
+    const apiKey = document.getElementById('apiKey').value;
+    
+    localStorage.setItem('apiKey', apiKey);
+    state.apiKey = apiKey;
+    
+    showAtomMessage('設定を保存したよ！これでもっと賢くなれるね！', 'excited');
+}

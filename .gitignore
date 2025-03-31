@@ -1,82 +1,92 @@
-# OSX
-.DS_Store
-
-# Xcode
-build/
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-xcuserdata
-*.xccheckout
-*.moved-aside
-DerivedData
-*.hmap
-*.ipa
-*.xcuserstate
-ios/.xcode.env.local
-
-# Android/IntelliJ
-build/
-.idea
-.gradle
-local.properties
-*.iml
-*.hprof
-.cxx/
-*.keystore
-!debug.keystore
-
-# node.js
+# Dependencies
 node_modules/
-npm-debug.log
-yarn-debug.log
-yarn-error.log
+package-lock.json
+yarn.lock
 
-# fastlane
-**/fastlane/report.xml
-**/fastlane/Preview.html
-**/fastlane/screenshots
-**/fastlane/test_output
+# Environment
+.env
+.env.local
+.env.*.local
 
-# Bundle artifact
-*.jsbundle
+# Build
+/dist
+/build
+/public/build
+/public/icons
+/public/images
 
-# Ruby / CocoaPods
-/ios/Pods/
-/vendor/bundle/
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Temporary files
+# Editor
+.idea/
+.vscode/
 *.swp
 *.swo
+.DS_Store
 
-# Environment variables
-.env
-.env.*
+# Cache
+.cache/
+.npm/
+.eslintcache
 
-# TypeScript
-*.tsbuildinfo
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Database
+*.sqlite
+*.sqlite3
+data/*.sqlite
+
+# Coverage
+coverage/
+.nyc_output/
 
 # Testing
-/coverage
+/test-results/
+/cypress/videos/
+/cypress/screenshots/
 
-# Production
-/build
-/dist
+# PWA
+**/public/workbox-*.js
+**/public/sw.js
+**/public/fallback-*.js
+
+# Platform specific
+.DS_Store
+Thumbs.db
 
 # IDE
-.vscode/
-.idea/
 *.sublime-project
 *.sublime-workspace
+.idea/
+*.iml
+.vscode/
+*.code-workspace
 
 # Misc
-.DS_Store
-.env.local
 .env.development.local
 .env.test.local
 .env.production.local
+.directory
+*.pem
+
+# Debug
+.debug/
+debug.log
+debug/
+
+# Backup
+*.bak
+*.backup
+*~
+
+# Generated content
+/content/generated/
+/public/content/

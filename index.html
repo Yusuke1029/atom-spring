@@ -5,110 +5,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>アトムの泉 - 原子力について科学的に理解を深めよう</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=M+PLUS+Rounded+1c:wght@500;700&display=swap" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
-    <!-- PWA対応 -->
-    <meta name="theme-color" content="#3498db">
-    <link rel="apple-touch-icon" href="icons/icon-192.png">
 </head>
 <body>
-    <div id="root">
-        <header class="app-header">
-            <h1>アトムの泉</h1>
-            <p>原子力について、科学的に理解を深めよう</p>
-        </header>
+    <header class="app-header">
+        <button class="menu-button" aria-label="メニュー">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <h1>アトムの泉</h1>
+    </header>
 
-        <nav class="app-nav">
+    <div class="side-menu">
+        <div class="menu-overlay"></div>
+        <nav class="menu-content">
             <ul>
-                <li><a href="#home" class="active">ホーム</a></li>
-                <li><a href="#learn">学習</a></li>
-                <li><a href="#quiz">クイズ</a></li>
-                <li><a href="#profile">プロフィール</a></li>
+                <li><a href="#home" class="active">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+                    </svg>
+                    ホーム
+                </a></li>
+                <li><a href="#settings">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.03-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+                    </svg>
+                    設定
+                </a></li>
             </ul>
         </nav>
-
-        <main class="app-main">
-            <section id="home" class="page active">
-                <div class="welcome-card">
-                    <h2>ようこそ！</h2>
-                    <p>アトムの泉は、原子力についての理解を深めるための学習アプリです。</p>
-                    <button class="start-button">学習を始める</button>
-                </div>
-
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <img src="icons/study.svg" alt="学習">
-                        <h3>体系的な学習</h3>
-                        <p>基礎から応用まで、段階的に学べます</p>
-                    </div>
-                    <div class="feature-card">
-                        <img src="icons/quiz.svg" alt="クイズ">
-                        <h3>理解度チェック</h3>
-                        <p>クイズで学習内容を確認できます</p>
-                    </div>
-                    <div class="feature-card">
-                        <img src="icons/progress.svg" alt="進捗">
-                        <h3>進捗管理</h3>
-                        <p>学習の進み具合を可視化します</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="learn" class="page">
-                <div class="topics-grid">
-                    <div class="topic-card">
-                        <h3>第1章: 原子力の基礎</h3>
-                        <p>原子と原子核の基本構造について学びます</p>
-                        <button class="start-topic">開始</button>
-                    </div>
-                    <!-- 他のトピック -->
-                </div>
-            </section>
-
-            <section id="quiz" class="page">
-                <div class="quiz-container">
-                    <h2>理解度チェック</h2>
-                    <div id="quiz-question"></div>
-                    <div id="quiz-options"></div>
-                    <button id="next-question">次の問題</button>
-                </div>
-            </section>
-
-            <section id="profile" class="page">
-                <div class="profile-container">
-                    <div class="progress-summary">
-                        <h2>学習進捗</h2>
-                        <div class="progress-bar"></div>
-                    </div>
-                    <div class="achievements">
-                        <h2>獲得バッジ</h2>
-                        <div class="badges-grid"></div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <footer class="app-footer">
-            <p>&copy; 2025 アトムの泉</p>
-            <nav>
-                <a href="#">ヘルプ</a>
-                <a href="#">プライバシーポリシー</a>
-                <a href="#">利用規約</a>
-            </nav>
-        </footer>
     </div>
 
-    <!-- Service Worker登録 -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(registration => {
-                    console.log('ServiceWorker登録成功:', registration);
-                })
-                .catch(error => {
-                    console.log('ServiceWorker登録失敗:', error);
-                });
-        }
-    </script>
+    <main class="app-main">
+        <div class="atom-character">
+            <div class="atom-kun">
+                <div class="atom-head">
+                    <div class="atom-face">
+                        <div class="atom-eye left"></div>
+                        <div class="atom-eye right"></div>
+                        <div class="atom-mouth"></div>
+                    </div>
+                </div>
+                <div class="atom-body">
+                    <div class="atom-core"></div>
+                    <div class="atom-electrons">
+                        <div class="electron"></div>
+                        <div class="electron"></div>
+                        <div class="electron"></div>
+                    </div>
+                    <div class="atom-arms">
+                        <div class="arm left"></div>
+                        <div class="arm right"></div>
+                    </div>
+                    <div class="atom-legs">
+                        <div class="leg left"></div>
+                        <div class="leg right"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="speech-bubble">
+                <p>やあ！アトムくんだよ。一緒に原子力について学ぼう！</p>
+                <div class="bubble-tail"></div>
+            </div>
+        </div>
+
+        <div id="home" class="page active">
+            <div class="card welcome-card">
+                <h2>今日の学習</h2>
+                <div class="progress-container">
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 60%"></div>
+                    </div>
+                    <span class="progress-text">60% 完了</span>
+                </div>
+                <button class="btn btn-primary pulse">
+                    学習を続ける
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <section class="quiz-section">
+                <div class="card">
+                    <h2>クイズに挑戦！</h2>
+                    <div class="quiz-container">
+                        <div class="quiz-question">
+                            <p>原子核を構成する粒子は次のうちどれかな？</p>
+                        </div>
+                        <div class="quiz-options">
+                            <button class="quiz-option">陽子と中性子</button>
+                            <button class="quiz-option">電子と陽子</button>
+                            <button class="quiz-option">中性子と電子</button>
+                            <button class="quiz-option">陽子のみ</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="settings" class="page">
+            <div class="card settings-card">
+                <h2>API設定</h2>
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label for="apiKey">APIキー</label>
+                        <div class="input-group">
+                            <input type="password" id="apiKey" class="form-input" placeholder="APIキーを入力してください">
+                            <button type="button" class="btn btn-icon" id="togglePassword">
+                                <svg class="icon" viewBox="0 0 24 24">
+                                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        保存
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
     <script src="script.js"></script>
 </body>
 </html>
